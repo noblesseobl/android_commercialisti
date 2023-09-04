@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:progetto_android_commercialisti/LoginPlayer.dart';
 
 void main() {
-
-  runApp( MyHomePage());
-
+  runApp(MyHomePage());
 }
 
 
