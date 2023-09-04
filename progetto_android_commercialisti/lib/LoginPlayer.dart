@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:progetto_android_commercialisti/HomePage.dart';
 import 'package:progetto_android_commercialisti/main.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
-
+import 'package:http/http.dart' as http;
 import '../AggiustaSize.dart';
 import 'recuperoPassword.dart';
+
 
 class LoginPlayer extends StatefulWidget {
   LoginPlayer();
@@ -145,25 +149,50 @@ class _LoginPlayerState extends State<LoginPlayer> {
                             SizedBox(height: 25,),
 
                             ElevatedButton(
-                              onPressed: () {
-                                /*
+                              onPressed: () async {
+
                                 if (_formKey.currentState!.validate()) {
                                   // If the form is valid, display a snackbar. In the real world,
                                   // you'd often call a server or save the information in a database.
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Processing Data')),
                                   );
+                                  try{
 
-                                 */
-                                  Navigator.of(context).push(
-                                    CustomPageRoute(
-                                        child: HomePage(),
-                                        direction:AxisDirection.up
-                                    ),);
-                                //}
+                                    var request = http.Request('POST', Uri.parse('http://localhost:51868/Login/LoginCheck'));
+                                    request.body = '''{\r\n    "codiceUtente": "TEST_2",\r\n\t"password" : "Algo@2022!"\r\n\r\n}''';
 
-                                //chiamata http
-                                //gestione risposta
+                                    http.Response response = (await request.send()) as Response;
+
+
+
+                                    final jsonData = jsonDecode(response.body) as Map< String, dynamic>;
+                                    if (jsonData["retCode"]=="0" && jsonData["retDescr"]=="Accesso consentito") {
+                                      Navigator.of(context).push(
+                                        CustomPageRoute(
+                                            child: HomePage(),
+                                            direction:AxisDirection.up
+                                        ),);
+
+                                    }
+                                    else if (jsonData["retCode"]=="1" && jsonData["retDescr"]=="Accesso negato"){
+                                      print(response.reasonPhrase);
+                                      sbagliato=true;
+                                    }else{
+                                      print(response.reasonPhrase);
+                                      sbagliato=true;
+                                    }
+
+
+
+                                  }catch(er){
+                                    print(er);
+                                  }
+
+
+
+                                }
+
                                 //cambia route
 
                               },

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
 import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
-
+import 'package:http/http.dart' as http;
 import 'AggiustaSize.dart';
 
 class HomePage extends StatefulWidget {
@@ -237,7 +237,26 @@ class _News extends State<News> {
                                 SizedBox(height: 20),
                                 ElevatedButton(
 
-                                  onPressed: () {
+                                  onPressed: () async {
+
+
+                                    var request = http.Request('POST', Uri.parse('http://localhost:80/token'));
+                                    request.bodyFields = {
+                                      'username': 'super',
+                                      'password': 'super',
+                                      'grant_type': 'password'
+                                    };
+
+                                    http.StreamedResponse response = await request.send();
+
+                                    if (response.statusCode == 200) {
+                                      print(await response.stream.bytesToString());
+                                    }
+                                    else {
+                                      print(response.reasonPhrase);
+                                    }
+
+
                                     print("ppvkojrivnm");
                                   },
 
