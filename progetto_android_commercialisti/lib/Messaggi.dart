@@ -6,7 +6,6 @@ import 'package:progetto_android_commercialisti/AggiustaSize.dart';
 import 'package:progetto_android_commercialisti/HomePage.dart';
 import 'package:progetto_android_commercialisti/Profilo.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
-import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 
 class Messaggi extends StatefulWidget {
   const Messaggi();
@@ -16,6 +15,16 @@ class Messaggi extends StatefulWidget {
 }
 
 class _MessaggiState extends State<Messaggi> {
+
+  final _formKey = GlobalKey<FormState>();
+
+  String? testo;
+
+  String? dropdownValue=null;
+  String? get $dropdownValue => null;
+
+  List list =["Gerry Scotti","Lino Banfi","Gabibbo"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +95,101 @@ class _MessaggiState extends State<Messaggi> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {  },
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Stack(
+                    children: <Widget>[
+                      Positioned(
+                        right: -40.0,
+                        top: -40.0,
+                        child: InkResponse(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: CircleAvatar(
+                            child: Icon(Icons.close),
+                            backgroundColor: Colors.red,
+                          ),
+                        ),
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            //dropdown menu
+
+                            DropdownButton(
+                                items: list!.map<DropdownMenuItem<String>>(
+                                        (dynamic value) {
+                                      return DropdownMenuItem<String>(
+                                        child: Text(value),
+                                        value: value.toString(),
+                                      );
+                                    }).toList(),
+                                value: dropdownValue,
+                                isExpanded: true,
+                                icon: const Icon(Icons.arrow_downward),
+                                elevation: 16,
+                                style:
+                                TextStyle(color: Colors.blueGrey.shade700),
+                                underline: Container(
+                                  width: 100,
+                                  height: 2,
+                                  color: Colors.blueGrey,
+                                ),
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    dropdownValue = value;
+                                    print(dropdownValue);
+                                  });
+                                }),
+
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: TextFormField(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  hintText: '....',
+                                  filled: true,
+                                ),
+                                keyboardType: TextInputType.multiline,
+                                expands: true,
+                                maxLines: null,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Inserisci testo!';
+                                  }
+                                  testo=value;
+                                  return null;
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                child: Text("Submit"),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
+                                  }
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              });
+        },
         child: Icon(Icons.edit),
       ),
 
@@ -277,3 +380,4 @@ class _MessageState extends State<Message> {
     );
   }
 }
+
