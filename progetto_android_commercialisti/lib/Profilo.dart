@@ -77,31 +77,115 @@ class _ProfiloState extends State<Profilo> {
             ),
             SizedBox(height: 30,),
 
-            Card(
 
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Colors.black,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-              ),
-              color: Colors.white70,
-              child: Container(
-                padding: const EdgeInsets.all(70),
-                height: 1000,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(100)),
-                           child: Image(image: AssetImage("/mole.png"))),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                children: [
+
+                  Material(
+                    elevation: 30,
+                    borderRadius: BorderRadius.circular(12),
+                    shadowColor: Colors.black,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      shadowColor: Colors.black26,
+                      color: Colors.purple.shade100,
+                      child: Column(
+                        children: [
+
+
+                          Center(
+                            child: Container(
+                                padding: EdgeInsets.all(20),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+
+                                    //immagine
+
+
+                                    Container(
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.blueGrey.shade200,
+                                        backgroundImage: AssetImage('/account.png'),
+                                        radius: 80,
+
+                                      ),),
+
+
+                                    SizedBox(
+                                        height: 30
+                                    ),
+
+                                    Text('Studio commercialistico Giovanni Giorgio',
+                                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,)
+                                    ),
+
+
+
+                                    SizedBox(
+                                        height: 20
+                                    ),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.directions),
+                                        Text('via roma 34',
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
+                                        ),
+                                      ],
+                                    ),
+
+                                    SizedBox(
+                                      height: 10
+                                    ),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.phone),
+                                        Text('333 333 33 ',
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
+                                        ),
+                                      ],
+                                    ),
+
+                                    SizedBox(
+                                      height: 10
+                                    ),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.alternate_email_outlined),
+                                        Text('ciaone@prontone.com',
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
+                                        ),
+                                      ],
+                                    ),
+
+                                    SizedBox(height: 10),
+
+                                  ],
+                                )),),
+                        ],
+                      ),
+
                     ),
-                    Text("cmcjfnrfjrnvjrnrjnvrjvnrjvnrjvnrvnrjvnrjvnrjvnrjvnrjvnrjvnrjvnrjvnrjvnjnnnnnrjnrjn")
-                  ],
-                )),
+
+
+                  ),
+                  SizedBox(height: 20,),
+                ],
               ),
+            ),
 
 
           ],
@@ -120,6 +204,7 @@ class _ProfiloState extends State<Profilo> {
             tabBackgroundColor: Colors.white24,
             padding: EdgeInsets.all(11),
             gap: 8,
+            selectedIndex: 2,
             iconSize: 25,
             onTabChange: (index) async {
               if (index == 1) {

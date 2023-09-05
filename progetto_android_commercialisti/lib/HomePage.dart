@@ -94,6 +94,7 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.black87,
               color: Colors.white,
               activeColor: Colors.white,
+              selectedIndex: 0,
               tabBackgroundColor: Colors.white24,
               padding: EdgeInsets.all(11),
               gap: 8,
@@ -173,7 +174,7 @@ class _News extends State<News> {
               child: Card(
 
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
+                  borderRadius: BorderRadius.circular(12)),
                 shadowColor: Colors.black26,
                 color: Colors.purple.shade100,
 
