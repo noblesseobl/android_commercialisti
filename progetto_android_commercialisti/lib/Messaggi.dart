@@ -6,6 +6,8 @@ import 'package:progetto_android_commercialisti/AggiustaSize.dart';
 import 'package:progetto_android_commercialisti/HomePage.dart';
 import 'package:progetto_android_commercialisti/Profilo.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
+import 'dart:io';
+
 
 class Messaggi extends StatefulWidget {
   const Messaggi();
@@ -14,16 +16,19 @@ class Messaggi extends StatefulWidget {
   State<Messaggi> createState() => _MessaggiState();
 }
 
+
+List list =["Gerry Scotti","Lino Banfi","Gabibbo"];
+
 class _MessaggiState extends State<Messaggi> {
 
   final _formKey = GlobalKey<FormState>();
 
   String? testo;
 
-  String? dropdownValue=null;
+  String? dropdownValue;
+
   String? get $dropdownValue => null;
 
-  List list =["Gerry Scotti","Lino Banfi","Gabibbo"];
 
   @override
   Widget build(BuildContext context) {
@@ -95,98 +100,134 @@ class _MessaggiState extends State<Messaggi> {
       ),
 
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple.shade400,
         onPressed: () {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return AlertDialog(
-                  content: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        right: -40.0,
-                        top: -40.0,
-                        child: InkResponse(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: CircleAvatar(
-                            child: Icon(Icons.close),
-                            backgroundColor: Colors.red,
+                return StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                      return AlertDialog(
+                        content: Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              //dropdown menu
+
+                              DropdownButton(
+
+
+                                  items: list!.map<DropdownMenuItem<String>>(
+                                          (dynamic value) {
+                                        return DropdownMenuItem<String>(
+                                          child: Text(value),
+                                          value: value.toString(),
+                                        );
+                                      }).toList(),
+                                  value: dropdownValue,
+                                  hint: Text("seleziona destinatario"),
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.arrow_downward),
+                                  elevation: 16,
+                                  style:
+                                  TextStyle(color: Colors.blueGrey.shade700),
+                                  underline: Container(
+                                    width: 100,
+                                    height: 2,
+                                    color: Colors.blueGrey,
+                                  ),
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      dropdownValue = value;
+                                      print(dropdownValue);
+                                    });
+                                  }),
+
+
+                              SizedBox(height: 10,),
+                              Flexible(
+                                //padding: EdgeInsets.all(8.0),
+
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    hintText: 'inserisci titolo',
+                                    filled: true,
+                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Flexible(
+                                //padding: EdgeInsets.all(8.0),
+
+                                child: TextFormField(
+
+                                  decoration: InputDecoration(
+                                    hintText: 'inserisci testo',
+                                    filled: true,
+                                  ),
+                                  keyboardType: TextInputType.multiline,
+                                  expands: false,
+                                  maxLines: null,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Inserisci testo!';
+                                    }
+                                    testo=value;
+                                    return null;
+                                  },
+                                ),
+                              ),
+
+                              SizedBox(height: 15,),
+
+
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.deepPurple.shade400, // Background color
+                                      ),
+                                      child: Icon(Icons.upload_rounded),
+
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+
+                              SizedBox(height: 15,),
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.deepPurple.shade400, // Background color
+                                  ),
+                                  child: Text("Submit"),
+
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                    }
+                                  },
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            //dropdown menu
-
-                            DropdownButton(
-                                items: list!.map<DropdownMenuItem<String>>(
-                                        (dynamic value) {
-                                      return DropdownMenuItem<String>(
-                                        child: Text(value),
-                                        value: value.toString(),
-                                      );
-                                    }).toList(),
-                                value: dropdownValue,
-                                isExpanded: true,
-                                icon: const Icon(Icons.arrow_downward),
-                                elevation: 16,
-                                style:
-                                TextStyle(color: Colors.blueGrey.shade700),
-                                underline: Container(
-                                  width: 100,
-                                  height: 2,
-                                  color: Colors.blueGrey,
-                                ),
-                                onChanged: (String? value) {
-                                  setState(() {
-                                    dropdownValue = value;
-                                    print(dropdownValue);
-                                  });
-                                }),
-
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: TextFormField(),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: '....',
-                                  filled: true,
-                                ),
-                                keyboardType: TextInputType.multiline,
-                                expands: true,
-                                maxLines: null,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Inserisci testo!';
-                                  }
-                                  testo=value;
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                child: Text("Submit"),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    _formKey.currentState!.save();
-                                  }
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                      );
+                    }
                 );
               });
         },
@@ -241,6 +282,9 @@ class _MessaggiState extends State<Messaggi> {
     );
   }
 }
+
+
+
 
 
 class Message extends StatefulWidget {
