@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:progetto_android_commercialisti/HomePage.dart';
-import 'package:progetto_android_commercialisti/main.dart';
+import 'package:progetto_android_commercialisti/SignIn.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
 import 'package:http/http.dart' as http;
 import '../AggiustaSize.dart';
@@ -149,49 +148,54 @@ class _LoginPlayerState extends State<LoginPlayer> {
                             SizedBox(height: 25,),
 
                             ElevatedButton(
-                              onPressed: () async {
+                              onPressed: ()  {
 
-                                if (_formKey.currentState!.validate()) {
-                                  // If the form is valid, display a snackbar. In the real world,
-                                  // you'd often call a server or save the information in a database.
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Processing Data')),
-                                  );
-                                  try{
+                                // if (_formKey.currentState!.validate()) {
+                                //   // If the form is valid, display a snackbar. In the real world,
+                                //   // you'd often call a server or save the information in a database.
+                                //   ScaffoldMessenger.of(context).showSnackBar(
+                                //     const SnackBar(content: Text('Processing Data')),
+                                //   );
+                                //   try{
+                                //
+                                //     var request = http.Request('POST', Uri.parse('http://localhost:51868/Login/LoginCheck'));
+                                //     request.body = '''{\r\n    "codiceUtente": "TEST_2",\r\n\t"password" : "Algo@2022!"\r\n\r\n}''';
+                                //
+                                //     http.Response response = (await request.send()) as Response;
+                                //
+                                //
+                                //     final jsonData = jsonDecode(response.body) as Map< String, dynamic>;
+                                //     if (jsonData["retCode"]=="0" && jsonData["retDescr"]=="Accesso consentito") {
+                                //       Navigator.of(context).push(
+                                //         CustomPageRoute(
+                                //             child: HomePage(),
+                                //             direction:AxisDirection.up
+                                //         ),);
+                                //
+                                //     }
+                                //     else if (jsonData["retCode"]=="1" && jsonData["retDescr"]=="Accesso negato"){
+                                //       print(response.reasonPhrase);
+                                //       sbagliato=true;
+                                //     }else{
+                                //       print(response.reasonPhrase);
+                                //       sbagliato=true;
+                                //     }
+                                //
+                                //
+                                //
+                                //   }catch(er){
+                                //     print(er);
+                                //   }
+                                //
+                                //
+                                //
+                                // }
 
-                                    var request = http.Request('POST', Uri.parse('http://localhost:51868/Login/LoginCheck'));
-                                    request.body = '''{\r\n    "codiceUtente": "TEST_2",\r\n\t"password" : "Algo@2022!"\r\n\r\n}''';
-
-                                    http.Response response = (await request.send()) as Response;
-
-
-
-                                    final jsonData = jsonDecode(response.body) as Map< String, dynamic>;
-                                    if (jsonData["retCode"]=="0" && jsonData["retDescr"]=="Accesso consentito") {
-                                      Navigator.of(context).push(
-                                        CustomPageRoute(
-                                            child: HomePage(),
-                                            direction:AxisDirection.up
-                                        ),);
-
-                                    }
-                                    else if (jsonData["retCode"]=="1" && jsonData["retDescr"]=="Accesso negato"){
-                                      print(response.reasonPhrase);
-                                      sbagliato=true;
-                                    }else{
-                                      print(response.reasonPhrase);
-                                      sbagliato=true;
-                                    }
-
-
-
-                                  }catch(er){
-                                    print(er);
-                                  }
-
-
-
-                                }
+                                Navigator.of(context).push(
+                                  CustomPageRoute(
+                                      child: HomePage(),
+                                      direction:AxisDirection.up
+                                  ),);
 
                                 //cambia route
 
@@ -206,6 +210,34 @@ class _LoginPlayerState extends State<LoginPlayer> {
                             _divider(),
                             SizedBox(height: 30,),
 
+
+                            Padding(
+                                padding: getPadding(top: 22),
+                                child: Text("Non hai un account?",
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold
+                                    )
+                                )),
+
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    CustomPageRoute(
+                                        child: SignIn(),
+                                        direction:AxisDirection.up),);
+                                  print("registrati");
+                                },
+                                child: Padding(
+                                    padding: getPadding(top: 9),
+                                    child: Text("Registrati",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.indigoAccent,
+                                            decoration: TextDecoration.underline)
+                                    ))),
 
                             Padding(
                                 padding: getPadding(top: 28),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:progetto_android_commercialisti/Messaggi.dart';
+import 'package:progetto_android_commercialisti/Profilo.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
 import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 import 'package:http/http.dart' as http;
@@ -98,11 +100,14 @@ class _HomePageState extends State<HomePage> {
               iconSize: 25,
               onTabChange: (index) async {
                 if (index == 1) {
-                  await Future.delayed(const Duration(milliseconds: 100));
+                  Navigator.of(context).push(
+                    CustomPageRoute(
+                        child: Messaggi(),
+                        direction:AxisDirection.up),);
                 }else if (index==2){
                   Navigator.of(context).push(
                     CustomPageRoute(
-                        child: Placeholder(),
+                        child: Profilo(),
                         direction:AxisDirection.up),);
                 }
               },
