@@ -73,7 +73,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
                                 decoration:BoxDecoration(
-                                    color: Colors.purple.shade50,
+                                    color: Colors.blueGrey.shade50,
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(color: Colors.black)
                                 ),
@@ -106,7 +106,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
                                 decoration:BoxDecoration(
-                                    color: Colors.purple.shade50,
+                                    color: Colors.blueGrey.shade50,
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(color: Colors.black)
                                 ),
