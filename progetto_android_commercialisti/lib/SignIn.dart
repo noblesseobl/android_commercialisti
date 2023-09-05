@@ -380,8 +380,9 @@ class _SignInState extends State<SignIn> {
                     SizedBox(height: 10,),
 
                     ElevatedButton(
-                      onPressed: () async {
 
+                      onPressed: () async {
+                        /*
                         /*if (_formKey.currentState!.validate()) {
 
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -430,7 +431,7 @@ class _SignInState extends State<SignIn> {
                         //chiamata http
                         //gestione risposta
                         //cambia route
-
+                        */
                       },
                       child: Text("Registrati"),
                       style: ElevatedButton.styleFrom(

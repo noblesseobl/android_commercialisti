@@ -33,13 +33,13 @@ class _MessaggiState extends State<Messaggi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: Colors.blueGrey.shade50,
       appBar: AppBar(
         //leading: Icon(Icons.account_circle, size: 45,),
         elevation: 5,
         toolbarHeight: 80,
-        backgroundColor: Colors.deepPurple.shade400,
-        shadowColor: Colors.blueGrey,
+        backgroundColor: Colors.deepPurple.shade600,
+        shadowColor: Colors.deepPurple.shade600,
         centerTitle: true,
         automaticallyImplyLeading: false,
 
@@ -47,13 +47,13 @@ class _MessaggiState extends State<Messaggi> {
           children: [
 
             Padding(
-                padding: getPadding(top: 20),
-                child: Text("NOME APP!",
+                padding: getPadding(top: 0),
+                child: Text("Studio Grassi",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 40,
-                      letterSpacing: 7,
+                      fontSize: 30,
+                      letterSpacing: 4,
                       fontWeight: FontWeight.bold,
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
@@ -63,13 +63,13 @@ class _MessaggiState extends State<Messaggi> {
             // Implement the stroke
 
             Padding(
-                padding: getPadding(top: 20),
-                child: Text("NOME APP!",
+                padding: getPadding(top: 0),
+                child: Text("Studio Grassi",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 40,
-                      letterSpacing: 7,
+                      fontSize: 30,
+                      letterSpacing: 4,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ))),
@@ -84,15 +84,16 @@ class _MessaggiState extends State<Messaggi> {
           children: [
             SizedBox(height: 20,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
 
               children: [
+                SizedBox(width: 35,),
                 Text("Messaggi",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, )
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey.shade700)
                 ),
               ],
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 20,),
             for (int i = 0; i < 6; i++)
               Message(i)
           ],
@@ -316,9 +317,12 @@ class _MessageState extends State<Message> {
             shadowColor: Colors.black,
             child: Card(
               shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.deepPurple.shade600,
+                  ),
                   borderRadius: BorderRadius.circular(12)),
               shadowColor: Colors.black26,
-              color: Colors.purple.shade100,
+              color: Colors.purple.shade50,
               child: Column(
                 children: [
 

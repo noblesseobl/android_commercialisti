@@ -17,13 +17,14 @@ class _ProfiloState extends State<Profilo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey.shade50,
 
       appBar: AppBar(
         //leading: Icon(Icons.account_circle, size: 45,),
         elevation: 5,
         toolbarHeight: 80,
         backgroundColor: Colors.deepPurple.shade600,
-        shadowColor: Colors.blueGrey,
+        shadowColor: Colors.deepPurple.shade600,
         centerTitle: true,
         automaticallyImplyLeading: false,
 
@@ -31,13 +32,13 @@ class _ProfiloState extends State<Profilo> {
           children: [
 
             Padding(
-                padding: getPadding(top: 20),
-                child: Text("NOME APP!",
+                padding: getPadding(top: 0),
+                child: Text("Studio Grassi",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 40,
-                      letterSpacing: 7,
+                      fontSize: 30,
+                      letterSpacing: 4,
                       fontWeight: FontWeight.bold,
                       foreground: Paint()
                         ..style = PaintingStyle.stroke
@@ -47,13 +48,13 @@ class _ProfiloState extends State<Profilo> {
             // Implement the stroke
 
             Padding(
-                padding: getPadding(top: 20),
-                child: Text("NOME APP!",
+                padding: getPadding(top: 0),
+                child: Text("Studio Grassi",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 40,
-                      letterSpacing: 7,
+                      fontSize: 30,
+                      letterSpacing: 4,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ))),
@@ -67,17 +68,16 @@ class _ProfiloState extends State<Profilo> {
           children: [
             SizedBox(height: 20,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
 
               children: [
+                SizedBox(width: 35,),
                 Text("Il tuo studio",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, )
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey.shade700)
                 ),
               ],
             ),
-            SizedBox(height: 30,),
-
-
+            SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
@@ -89,9 +89,12 @@ class _ProfiloState extends State<Profilo> {
                     shadowColor: Colors.black,
                     child: Card(
                       shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.deepPurple.shade600,
+                          ),
                           borderRadius: BorderRadius.circular(12)),
                       shadowColor: Colors.black26,
-                      color: Colors.purple.shade100,
+                      color: Colors.purple.shade50,
                       child: Column(
                         children: [
 
@@ -104,9 +107,7 @@ class _ProfiloState extends State<Profilo> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
 
-                                    //immagine
-
-
+                                    SizedBox(height: 10,),
                                     Container(
                                       child: CircleAvatar(
                                         backgroundColor: Colors.blueGrey.shade200,
@@ -117,25 +118,29 @@ class _ProfiloState extends State<Profilo> {
 
 
                                     SizedBox(
-                                        height: 30
+                                        height: 20
                                     ),
 
                                     Text('Studio commercialistico Giovanni Giorgio',
-                                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,)
+                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)
                                     ),
 
 
 
                                     SizedBox(
-                                        height: 20
+                                        height: 30
                                     ),
 
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.directions),
-                                        Text('via roma 34',
+                                        SizedBox(width: 25,),
+                                        Icon(Icons.directions, color: Colors.deepPurple.shade600),
+                                        SizedBox(
+                                            width: 7
+                                        ),
+                                        Text('Via Roma, 34',
                                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
                                         ),
                                       ],
@@ -149,7 +154,11 @@ class _ProfiloState extends State<Profilo> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.phone),
+                                        SizedBox(width: 25,),
+                                        Icon(Icons.phone, color: Colors.deepPurple.shade600),
+                                        SizedBox(
+                                            width: 7
+                                        ),
                                         Text('333 333 33 ',
                                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
                                         ),
@@ -164,7 +173,11 @@ class _ProfiloState extends State<Profilo> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.alternate_email_outlined),
+                                        SizedBox(width: 25,),
+                                        Icon(Icons.alternate_email_outlined, color: Colors.deepPurple.shade600),
+                                        SizedBox(
+                                            width: 7
+                                        ),
                                         Text('ciaone@prontone.com',
                                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
                                         ),

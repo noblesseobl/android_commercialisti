@@ -33,7 +33,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
     bool sbagliato=false;
 
     return Scaffold(
-        backgroundColor: Colors.blue.shade100,
+        backgroundColor: Colors.purple.shade100,
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Center(
@@ -73,7 +73,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
                                 decoration:BoxDecoration(
-                                    color: Colors.white70,
+                                    color: Colors.purple.shade50,
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(color: Colors.black)
                                 ),
@@ -106,7 +106,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
                                 decoration:BoxDecoration(
-                                    color: Colors.white70,
+                                    color: Colors.purple.shade50,
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(color: Colors.black)
                                 ),
@@ -202,7 +202,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                               },
                               child: Text("Accedi"),
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.blueAccent.shade700, // Background color
+                                primary: Colors.deepPurple.shade600, // Background color
                               ),
                             ),
 
@@ -235,7 +235,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            color: Colors.indigoAccent,
+                                            color: Colors.deepPurple.shade600,
                                             decoration: TextDecoration.underline)
                                     ))),
 
@@ -263,7 +263,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                          color: Colors.indigoAccent,
+                                          color: Colors.deepPurple.shade600,
                                           decoration: TextDecoration.underline)
                                   )),
                             ),

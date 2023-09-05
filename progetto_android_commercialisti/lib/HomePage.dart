@@ -20,13 +20,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+        backgroundColor: Colors.blueGrey.shade50,
         appBar: AppBar(
           //leading: Icon(Icons.account_circle, size: 45,),
           elevation: 5,
           toolbarHeight: 80,
           backgroundColor: Colors.deepPurple.shade600,
-          shadowColor: Colors.blueGrey,
+          shadowColor: Colors.deepPurple.shade600,
           centerTitle: true,
           automaticallyImplyLeading: false,
 
@@ -34,13 +34,13 @@ class _HomePageState extends State<HomePage> {
             children: [
 
               Padding(
-                  padding: getPadding(top: 20),
-                  child: Text("NOME APP!",
+                  padding: getPadding(top: 0),
+                  child: Text("Studio Grassi",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 40,
-                        letterSpacing: 7,
+                        fontSize: 30,
+                        letterSpacing: 4,
                         fontWeight: FontWeight.bold,
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
@@ -50,13 +50,13 @@ class _HomePageState extends State<HomePage> {
               // Implement the stroke
 
               Padding(
-                  padding: getPadding(top: 20),
-                  child: Text("NOME APP!",
+                  padding: getPadding(top: 0),
+                  child: Text("Studio Grassi",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 40,
-                        letterSpacing: 7,
+                        fontSize: 30,
+                        letterSpacing: 4,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ))),
@@ -70,15 +70,16 @@ class _HomePageState extends State<HomePage> {
             children: [
               SizedBox(height: 20,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
 
                 children: [
-                  Text("News",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, )
+                  SizedBox(width: 35,),
+                  Text("News / Bacheca",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey.shade700)
                   ),
                 ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               for (int i = 0; i < 14; i++)
                 News(i)
             ],
@@ -169,30 +170,33 @@ class _News extends State<News> {
 
               elevation: 30,
               borderRadius: BorderRadius.circular(12),
-              color: Colors.deepPurple.shade300,
+              color: Colors.deepPurple.shade200,
               shadowColor: Colors.black,
               child: Card(
 
                 shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.deepPurple.shade600,
+                    ),
                   borderRadius: BorderRadius.circular(12)),
                 shadowColor: Colors.black26,
-                color: Colors.purple.shade100,
+                color: Colors.purple.shade50,
 
                 child: RoundedExpansionTile(
 
 
-                    focusColor: Colors.purple.shade100,
-                    tileColor: Colors.deepPurple.shade400,
+                    focusColor: Colors.purple.shade50,
+                    tileColor: Colors.deepPurple.shade200,
 
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
 
-                    title: Text("${i+1}\t\t\t\t\t\t  ciao bergamasco",
+                    title: Text("Titolo Messaggio",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.white,
+                          color: Colors.grey.shade900,
                         )),
 
                     children: [
@@ -206,12 +210,13 @@ class _News extends State<News> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Topic',
                                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, )
                                     ),
+                                    SizedBox(width: 70,),
                                     Text('11/09/2001',
                                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, )
                                     ),
