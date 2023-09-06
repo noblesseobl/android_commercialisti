@@ -143,24 +143,26 @@ class _ProfiloState extends State<Profilo> {
                                           SizedBox(
                                               width: 7
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              MapsLauncher.launchQuery(
-                                                  'Via Roma 34, Torino');
-                                            },
-                                            child: Padding(
-                                              padding: getPadding(top: 0),
-                                              child:
-                                              Flexible(
-                                                child: RichText(
-                                                  overflow: TextOverflow.ellipsis,
-                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
-                                                  text: TextSpan(
-                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
-                                                      text: 'Via Roma, 34'),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                MapsLauncher.launchQuery(
+                                                    'Via Roma 34, Torino');
+                                              },
+                                              child: Padding(
+                                                padding: getPadding(top: 0),
+                                                child:
+                                                Flexible(
+                                                  child: RichText(
+                                                    overflow: TextOverflow.ellipsis,
+                                                    strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                    text: TextSpan(
+                                                        style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                        text: 'Via Roma, 34'),
+                                                  ),
                                                 ),
-                                              ),
-                                              ),),
+                                                ),),
+                                          ),
                                                 ],
                                               ),
 
@@ -177,22 +179,24 @@ class _ProfiloState extends State<Profilo> {
                                           SizedBox(
                                               width: 7
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              launch("tel://33333333");
-                                            },
-                                            child: Padding(
-                                              padding: getPadding(top: 0),
-                                              child:
-                                              Flexible(
-                                                child: RichText(
-                                                  overflow: TextOverflow.ellipsis,
-                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
-                                                  text: TextSpan(
-                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
-                                                      text: '333 333333'),
-                                                ),
-                                              ),),),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                launch("tel://33333333");
+                                              },
+                                              child: Padding(
+                                                padding: getPadding(top: 0),
+                                                child:
+                                                Flexible(
+                                                  child: RichText(
+                                                    overflow: TextOverflow.ellipsis,
+                                                    strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                    text: TextSpan(
+                                                        style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                        text: '333 333333'),
+                                                  ),
+                                                ),),),
+                                          ),
                                         ],
                                       ),
 
@@ -209,28 +213,28 @@ class _ProfiloState extends State<Profilo> {
                                           SizedBox(
                                               width: 7
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              String? encodeQueryParameters(Map<String, String> params) {
-                                                return params.entries
-                                                    .map((MapEntry<String, String> e) =>
-                                                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-                                                    .join('&');
-                                              }
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                String? encodeQueryParameters(Map<String, String> params) {
+                                                  return params.entries
+                                                      .map((MapEntry<String, String> e) =>
+                                                  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                                                      .join('&');
+                                                }
   // ···
-                                              final Uri emailLaunchUri = Uri(
-                                                scheme: 'mailto',
-                                                path: 'ciaone@prontone.com',
-                                                query: encodeQueryParameters(<String, String>{
-                                                  'subject': 'Richiesta di informazioni',
-                                                }),
-                                              );
+                                                final Uri emailLaunchUri = Uri(
+                                                  scheme: 'mailto',
+                                                  path: 'ciaone@prontone.com',
+                                                  query: encodeQueryParameters(<String, String>{
+                                                    'subject': 'Richiesta di informazioni',
+                                                  }),
+                                                );
 
-                                              launchUrl(emailLaunchUri);
-                                            },
-                                            child: Padding(
-                                              padding: getPadding(top: 0),
-                                              child: Flexible(
+                                                launchUrl(emailLaunchUri);
+                                              },
+                                              child: Padding(
+                                                padding: getPadding(top: 0),
                                                 child: RichText(
                                                   overflow: TextOverflow.ellipsis,
                                                   strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
@@ -238,8 +242,8 @@ class _ProfiloState extends State<Profilo> {
                                                       style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
                                                       text: 'ciaone@prontone.commmmmmmmmmmmmmmmmmmmmm'),
                                                 ),
-                                              ),
-                                              ),),
+                                                ),),
+                                          ),
                                         ],
                                       ),
 
@@ -295,11 +299,10 @@ class _ProfiloState extends State<Profilo> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         SizedBox(width: 5,),
-                                        Text('Giusy  -  ',
-                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
-                                        ),
-                                        Text('Contabilità',
-                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, )
+                                        Expanded(
+                                          child: Text('Giusy  -  Contabilità',
+                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -313,12 +316,13 @@ class _ProfiloState extends State<Profilo> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         SizedBox(width: 5,),
-                                        Text('Agata  -  ',
-                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
+                                        Expanded(
+                                          child: Text('Agata  -  Segreteriaahahahahahhahahahaahajajajajajajajaj',
+                                              maxLines: 1,
+                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, overflow: TextOverflow.ellipsis)
+                                          ),
                                         ),
-                                        Text('Segreteriaahahahahahhahahahaahajajajajajajajaj',
-                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, )
-                                        ),
+                                        
                                       ],
                                     ),
 
