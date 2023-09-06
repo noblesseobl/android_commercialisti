@@ -49,8 +49,51 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Colors.purple.shade100,
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        //leading: Icon(Icons.account_circle, size: 45,),
+        elevation: 5,
+        toolbarHeight: 80,
+        backgroundColor: Colors.deepPurple.shade600,
+        shadowColor: Colors.deepPurple.shade600,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+
+        title: Stack(
+          children: [
+
+            Padding(
+                padding: getPadding(top: 0),
+                child: Text("Registrazione",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      letterSpacing: 4,
+                      fontWeight: FontWeight.bold,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 3
+                        ..color = Colors.black,
+                    ))),
+            // Implement the stroke
+
+            Padding(
+                padding: getPadding(top: 0),
+                child: Text("Registrazione",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      letterSpacing: 4,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ))),
+
+          ],),
+      ),
+
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -59,7 +102,7 @@ class _SignInState extends State<SignIn> {
               key: _formKey,
               child: Container(
                 width: double.maxFinite,
-                padding: getPadding(left: 41, top: 49, right: 41, bottom: 49),
+                padding: getPadding(left: 41, top: 40, right: 41, bottom: 49),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -67,18 +110,10 @@ class _SignInState extends State<SignIn> {
 
                     //Scritta registrazione
 
-                    Padding(
-                        padding: getPadding(top: 11),
-                        child: Text("Registrazione",
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30
-                            ))),
+
 
                     //image picker
-                    SizedBox(height: 40,),
+                    SizedBox(height: 10,),
 
                     CircleAvatar(
                       backgroundColor: Colors.white70,
@@ -98,7 +133,7 @@ class _SignInState extends State<SignIn> {
                           },
                           child: Text("PICK FROM CAMERA"),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent.shade700, // Background color
+                            primary: Colors.deepPurple.shade400, // Background color
                           ),
                         ),
                         SizedBox(width: 10,),
@@ -108,7 +143,7 @@ class _SignInState extends State<SignIn> {
                           },
                           child: Text("PICK FROM GALLERY"),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent.shade700, // Background color
+                            primary: Colors.deepPurple.shade400, // Background color
                           ),
                         ),
                       ],

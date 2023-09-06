@@ -213,7 +213,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                             _divider(),
                             SizedBox(height: 30,),
 
-                            /*
+
                             Padding(
                                 padding: getPadding(top: 22),
                                 child: Text("Non hai un account?",
@@ -241,7 +241,8 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                             color: Colors.deepPurple.shade600,
                                             decoration: TextDecoration.underline)
                                     ))),
-                            */
+
+                            SizedBox(height: 20,),
                             Padding(
                                 padding: getPadding(top: 0),
                                 child: Text("Password dimenticata?",
