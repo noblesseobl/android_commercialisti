@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
 
                 children: [
                   SizedBox(width: 35,),
-                  Text("News / Bacheca",
+                  Text("Bacheca",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey.shade700)
                   ),
                 ],
@@ -193,6 +193,7 @@ class _News extends State<News> {
 
                     title: Text("Titolo Messaggio",
                         textAlign: TextAlign.left,
+                        maxLines: 2,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -210,11 +211,17 @@ class _News extends State<News> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Topic',
-                                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, )
+                                    Flexible(
+                                      child: RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        strutStyle: StrutStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                                        text: TextSpan(
+                                            style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold, ),
+                                            text: 'Topic'),
+                                      ),
                                     ),
                                     SizedBox(width: 70,),
                                     Text('11/09/2001',
@@ -274,6 +281,9 @@ class _News extends State<News> {
                                   child: Text("Allegato"),
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.deepPurple.shade400, // Background color
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20.0)
+                                    ),
                                   ),
                                 ),
                               ],

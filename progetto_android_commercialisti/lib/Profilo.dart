@@ -3,6 +3,9 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:progetto_android_commercialisti/HomePage.dart';
 import 'package:progetto_android_commercialisti/Messaggi.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
+import 'package:maps_launcher/maps_launcher.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'AggiustaSize.dart';
 
@@ -87,6 +90,176 @@ class _ProfiloState extends State<Profilo> {
                     elevation: 30,
                     borderRadius: BorderRadius.circular(12),
                     shadowColor: Colors.black,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.deepPurple.shade600,
+                            ),
+                            borderRadius: BorderRadius.circular(12)),
+                        shadowColor: Colors.black26,
+                        color: Colors.purple.shade50,
+                        child: Column(
+                          children: [
+
+
+                            Center(
+                              child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+
+                                      SizedBox(height: 10,),
+                                      Container(
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.blueGrey.shade200,
+                                          backgroundImage: AssetImage('/account.png'),
+                                          radius: 80,
+
+                                        ),),
+
+
+                                      SizedBox(
+                                          height: 20
+                                      ),
+
+                                      Text('Studio commercialistico Giovanni Giorgio',
+                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)
+                                      ),
+
+
+
+                                      SizedBox(
+                                          height: 30
+                                      ),
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(width: 10,),
+                                          Icon(Icons.directions, color: Colors.deepPurple.shade600),
+                                          SizedBox(
+                                              width: 7
+                                          ),
+                                          GestureDetector(
+                                            onTap: (){
+                                              MapsLauncher.launchQuery(
+                                                  'Via Roma 34, Torino');
+                                            },
+                                            child: Padding(
+                                              padding: getPadding(top: 0),
+                                              child:
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                  text: TextSpan(
+                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                      text: 'Via Roma, 34'),
+                                                ),
+                                              ),
+                                              ),),
+                                                ],
+                                              ),
+
+                                      SizedBox(
+                                        height: 10
+                                      ),
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(width: 10,),
+                                          Icon(Icons.phone, color: Colors.deepPurple.shade600),
+                                          SizedBox(
+                                              width: 7
+                                          ),
+                                          GestureDetector(
+                                            onTap: (){
+                                              launch("tel://33333333");
+                                            },
+                                            child: Padding(
+                                              padding: getPadding(top: 0),
+                                              child:
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                  text: TextSpan(
+                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                      text: '333 333333'),
+                                                ),
+                                              ),),),
+                                        ],
+                                      ),
+
+                                      SizedBox(
+                                        height: 10
+                                      ),
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(width: 10,),
+                                          Icon(Icons.alternate_email_outlined, color: Colors.deepPurple.shade600),
+                                          SizedBox(
+                                              width: 7
+                                          ),
+                                          GestureDetector(
+                                            onTap: (){
+                                              String? encodeQueryParameters(Map<String, String> params) {
+                                                return params.entries
+                                                    .map((MapEntry<String, String> e) =>
+                                                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                                                    .join('&');
+                                              }
+  // ···
+                                              final Uri emailLaunchUri = Uri(
+                                                scheme: 'mailto',
+                                                path: 'ciaone@prontone.com',
+                                                query: encodeQueryParameters(<String, String>{
+                                                  'subject': 'Richiesta di informazioni',
+                                                }),
+                                              );
+
+                                              launchUrl(emailLaunchUri);
+                                            },
+                                            child: Padding(
+                                              padding: getPadding(top: 0),
+                                              child: Flexible(
+                                                child: RichText(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                  text: TextSpan(
+                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                      text: 'ciaone@prontone.commmmmmmmmmmmmmmmmmmmmm'),
+                                                ),
+                                              ),
+                                              ),),
+                                        ],
+                                      ),
+
+                                      SizedBox(height: 10),
+
+                                    ],
+                                  )),),
+                          ],
+                        ),
+
+                      ),
+
+
+                  ),
+                  SizedBox(height: 30,),
+
+                  Material(
+                    elevation: 30,
+                    borderRadius: BorderRadius.circular(12),
+                    shadowColor: Colors.black,
                     child: Card(
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
@@ -104,87 +277,56 @@ class _ProfiloState extends State<Profilo> {
                                 padding: EdgeInsets.all(20),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
 
                                     SizedBox(height: 10,),
-                                    Container(
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.blueGrey.shade200,
-                                        backgroundImage: AssetImage('/account.png'),
-                                        radius: 80,
 
-                                      ),),
-
+                                    Text('I tuoi riferimenti',
+                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)
+                                    ),
 
                                     SizedBox(
                                         height: 20
                                     ),
 
-                                    Text('Studio commercialistico Giovanni Giorgio',
-                                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(width: 5,),
+                                        Text('Giusy  -  ',
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
+                                        ),
+                                        Text('Contabilità',
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, )
+                                        ),
+                                      ],
                                     ),
 
-
-
                                     SizedBox(
-                                        height: 30
+                                        height: 10
                                     ),
 
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(width: 25,),
-                                        Icon(Icons.directions, color: Colors.deepPurple.shade600),
-                                        SizedBox(
-                                            width: 7
+                                        SizedBox(width: 5,),
+                                        Text('Agata  -  ',
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
                                         ),
-                                        Text('Via Roma, 34',
-                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(
-                                      height: 10
-                                    ),
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SizedBox(width: 25,),
-                                        Icon(Icons.phone, color: Colors.deepPurple.shade600),
-                                        SizedBox(
-                                            width: 7
-                                        ),
-                                        Text('333 333 33 ',
-                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
+                                        Text('Segreteriaahahahahahhahahahaahajajajajajajajaj',
+                                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, )
                                         ),
                                       ],
                                     ),
 
                                     SizedBox(
-                                      height: 10
+                                        height: 10
                                     ),
 
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SizedBox(width: 25,),
-                                        Icon(Icons.alternate_email_outlined, color: Colors.deepPurple.shade600),
-                                        SizedBox(
-                                            width: 7
-                                        ),
-                                        Text('ciaone@prontone.com',
-                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, )
-                                        ),
-                                      ],
-                                    ),
-
-                                    SizedBox(height: 10),
+                                    SizedBox(height: 5),
 
                                   ],
                                 )),),
@@ -195,7 +337,7 @@ class _ProfiloState extends State<Profilo> {
 
 
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 60,)
                 ],
               ),
             ),

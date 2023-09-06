@@ -22,7 +22,7 @@ class _RecuperaPasswordState extends State<RecuperaPassword> {
   Widget build(BuildContext context) {
     bool inviato=false;
     return Scaffold(
-      backgroundColor: Colors.pink.shade100,
+      backgroundColor:  Colors.purple.shade100,
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Form(
@@ -45,7 +45,7 @@ class _RecuperaPasswordState extends State<RecuperaPassword> {
                               fontSize: 30
                           ))),
 
-                  SizedBox(height: 80,),
+                  SizedBox(height: 60,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Container(
@@ -97,7 +97,10 @@ class _RecuperaPasswordState extends State<RecuperaPassword> {
                     },
                     child: Text("Invia", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.pink.shade700, // Background color
+                      primary: Colors.deepPurple.shade400, // Background color
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)
+                      ),
                     ),
                   ),
 

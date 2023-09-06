@@ -109,6 +109,8 @@ class _MessaggiState extends State<Messaggi> {
                 return StatefulBuilder(
                     builder: (BuildContext context, StateSetter setState) {
                       return AlertDialog(
+                        backgroundColor: Colors.deepPurple.shade100,
+                        scrollable: true,
                         content: Form(
                           key: _formKey,
                           child: Column(
@@ -116,9 +118,18 @@ class _MessaggiState extends State<Messaggi> {
                             children: <Widget>[
                               //dropdown menu
 
-                              DropdownButton(
-
-
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                  child: Container(
+                                  decoration:BoxDecoration(
+                                  color: Colors.blueGrey.shade50,
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(color: Colors.deepPurple.shade400)
+                                  ),
+                                  child:Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
                                   items: list!.map<DropdownMenuItem<String>>(
                                           (dynamic value) {
                                         return DropdownMenuItem<String>(
@@ -127,7 +138,9 @@ class _MessaggiState extends State<Messaggi> {
                                         );
                                       }).toList(),
                                   value: dropdownValue,
-                                  hint: Text("seleziona destinatario"),
+                                  iconEnabledColor: Colors.deepPurple.shade400,
+                                  iconDisabledColor: Colors.deepPurple.shade400,
+                                  hint: Text("Seleziona destinatario"),
                                   isExpanded: true,
                                   icon: const Icon(Icons.arrow_downward),
                                   elevation: 16,
@@ -136,63 +149,86 @@ class _MessaggiState extends State<Messaggi> {
                                   underline: Container(
                                     width: 100,
                                     height: 2,
-                                    color: Colors.blueGrey,
+                                    color: Colors.deepPurple.shade400,
                                   ),
                                   onChanged: (String? value) {
                                     setState(() {
                                       dropdownValue = value;
                                       print(dropdownValue);
                                     });
-                                  }),
+                                  }),),),),),
 
 
                               SizedBox(height: 10,),
-                              Flexible(
-                                //padding: EdgeInsets.all(8.0),
-
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    hintText: 'inserisci titolo',
-                                    filled: true,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                child: Container(
+                                  decoration:BoxDecoration(
+                                      color: Colors.blueGrey.shade50,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(color: Colors.deepPurple.shade400)
                                   ),
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  child:Padding(
+                                    padding: const EdgeInsets.only(left: 12),
+
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Inserisci titolo'
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              Flexible(
-                                //padding: EdgeInsets.all(8.0),
-
-                                child: TextFormField(
-
-                                  decoration: InputDecoration(
-                                    hintText: 'inserisci testo',
-                                    filled: true,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                child: Container(
+                                  height: 170,
+                                  decoration:BoxDecoration(
+                                      color: Colors.blueGrey.shade50,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(color: Colors.deepPurple.shade400)
                                   ),
-                                  keyboardType: TextInputType.multiline,
-                                  expands: false,
-                                  maxLines: null,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Inserisci testo!';
-                                    }
-                                    testo=value;
-                                    return null;
-                                  },
+                                  child:Padding(
+                                    padding: const EdgeInsets.only(left: 0),
+
+                                    child: TextFormField(
+
+                                      decoration: InputDecoration(
+                                        hintText: 'Inserisci testo',
+                                        filled: true,
+                                      ),
+                                      keyboardType: TextInputType.multiline,
+                                      expands: false,
+                                      maxLines: null,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Inserisci testo!';
+                                        }
+                                        testo=value;
+                                        return null;
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ),
 
-                              SizedBox(height: 15,),
+                              SizedBox(height: 30,),
 
 
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
 
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(1.0),
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: Colors.deepPurple.shade400, // Background color
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0)
+                                        ),
                                       ),
                                       child: Icon(Icons.upload_rounded),
 
@@ -203,27 +239,29 @@ class _MessaggiState extends State<Messaggi> {
                                       },
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.deepPurple.shade400, // Background color
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0)
+                                        ),
+                                      ),
+                                      child: Text("Submit"),
+
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
+                                        }
+                                      },
+                                    ),
+                                  )
                                 ],
                               ),
 
 
-                              SizedBox(height: 15,),
-
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.deepPurple.shade400, // Background color
-                                  ),
-                                  child: Text("Submit"),
-
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState!.save();
-                                    }
-                                  },
-                                ),
-                              )
+                              SizedBox(height: 10,),
                             ],
                           ),
                         ),
@@ -335,11 +373,17 @@ class _MessageState extends State<Message> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Topic',
-                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, )
+                                Flexible(
+                                  child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    strutStyle: StrutStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                                    text: TextSpan(
+                                        style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold, ),
+                                        text: 'Topic'),
+                                  ),
                                 ),
                                 Text('11/09/2001',
                                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, )
@@ -372,7 +416,7 @@ class _MessageState extends State<Message> {
                             SizedBox(height: 20),
                             Row(
 
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
 
                                 ElevatedButton(
@@ -404,6 +448,9 @@ class _MessageState extends State<Message> {
 
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.deepPurple.shade400, // Background color
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20.0)
+                                    ),
                                   ),
                                 ),
                                 Icon(Icons.check_outlined, color: Colors.green.shade600, size: 40,),

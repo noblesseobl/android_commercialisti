@@ -59,7 +59,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                     ))),
 
                             Padding(
-                                padding: getPadding(top: 20),
+                                padding: getPadding(top: 10),
                                 child: Text("Login",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
@@ -68,7 +68,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                         fontSize: 20
                                     ))),
 
-                            SizedBox(height: 20,),
+                            SizedBox(height: 40,),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
@@ -200,9 +200,12 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                 //cambia route
 
                               },
-                              child: Text("Accedi"),
+                              child: Text("Accedi", style: TextStyle(fontSize: 16),),
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.deepPurple.shade600, // Background color
+                                primary: Colors.deepPurple.shade400, // Background color
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0)
+                                ),
                               ),
                             ),
 
@@ -210,7 +213,7 @@ class _LoginPlayerState extends State<LoginPlayer> {
                             _divider(),
                             SizedBox(height: 30,),
 
-
+                            /*
                             Padding(
                                 padding: getPadding(top: 22),
                                 child: Text("Non hai un account?",
@@ -238,9 +241,9 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                             color: Colors.deepPurple.shade600,
                                             decoration: TextDecoration.underline)
                                     ))),
-
+                            */
                             Padding(
-                                padding: getPadding(top: 28),
+                                padding: getPadding(top: 0),
                                 child: Text("Password dimenticata?",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
