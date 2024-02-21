@@ -10,17 +10,17 @@ import '../AggiustaSize.dart';
 import 'recuperoPassword.dart';
 
 
-class LoginPlayer extends StatefulWidget {
-  LoginPlayer();
+class Login extends StatefulWidget {
+  Login();
 
   @override
-  State<LoginPlayer> createState() => _LoginPlayerState();
+  State<Login> createState() => _LoginState();
 }
 
-class _LoginPlayerState extends State<LoginPlayer> {
+class _LoginState extends State<Login> {
 
 
-  _LoginPlayerState();
+  _LoginState();
 
 
   String username="";
@@ -154,38 +154,38 @@ class _LoginPlayerState extends State<LoginPlayer> {
                                 if (_formKey.currentState!.validate()) {
 
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Processing Data')),
-                                  );
-                                  try{
-
-                                    var request = http.Request('POST', Uri.parse('http://localhost:51868/Login/LoginCheck'));
-                                    request.body = '''{\r\n    "codiceUtente": "TEST_2",\r\n\t"password" : "Algo@2022!"\r\n\r\n}''';
-
-                                    http.Response response = (await request.send()) as Response;
-
-                                    final jsonData = jsonDecode(response.body) as Map< String, dynamic>;
-
-                                    if (jsonData["retCode"]=="0" && jsonData["retDescr"]=="Accesso consentito") {
-
-
-                                      request = http.Request('POST', Uri.parse('http://localhost:51868/token'));
-                                      request.bodyFields = {
-                                        'username': 'super',
-                                        'password': 'super',
-                                        'grant_type': 'password'
-                                      };
-
-                                      http.Response response2 = (await request.send()) as Response;
-
-                                      if (response.statusCode == 200) {
+                                    const SnackBar(content: Text('Processing Data')),);
+                                  // );
+                                  // try{
+                                  //
+                                  //   var request = http.Request('POST', Uri.parse('http://localhost:51868/Login/LoginCheck'));
+                                  //   request.body = '''{\r\n    "codiceUtente": "TEST_2",\r\n\t"password" : "Algo@2022!"\r\n\r\n}''';
+                                  //
+                                  //   http.Response response = (await request.send()) as Response;
+                                  //
+                                  //   final jsonData = jsonDecode(response.body) as Map< String, dynamic>;
+                                  //
+                                  //   if (jsonData["retCode"]=="0" && jsonData["retDescr"]=="Accesso consentito") {
+                                  //
+                                  //
+                                  //     request = http.Request('POST', Uri.parse('http://localhost:51868/token'));
+                                  //     request.bodyFields = {
+                                  //       'username': 'super',
+                                  //       'password': 'super',
+                                  //       'grant_type': 'password'
+                                  //     };
+                                  //
+                                  //     http.Response response2 = (await request.send()) as Response;
+                                  //
+                                  //     if (response.statusCode == 200) {
                                           Navigator.of(context).push(
                                             CustomPageRoute(
                                               child: HomePage(),
                                               direction:AxisDirection.up
                                           ),);
-                                      }  else {
-                                      print(response.reasonPhrase);
-                                      }
+                                      // }  else {
+                                      // print(response.reasonPhrase);
+                                      // }
 
 
 
@@ -195,22 +195,22 @@ class _LoginPlayerState extends State<LoginPlayer> {
 
 
 
+                                    //
+                                    //
+                                    // }
+                                    // else if (jsonData["retCode"]=="1" && jsonData["retDescr"]=="Accesso negato"){
+                                    //   print(response.reasonPhrase);
+                                    //   sbagliato=true;
+                                    // }else{
+                                    //   print(response.reasonPhrase);
+                                    //   sbagliato=true;
+                                    // }
 
-
-                                    }
-                                    else if (jsonData["retCode"]=="1" && jsonData["retDescr"]=="Accesso negato"){
-                                      print(response.reasonPhrase);
-                                      sbagliato=true;
-                                    }else{
-                                      print(response.reasonPhrase);
-                                      sbagliato=true;
-                                    }
-
-
-
-                                  }catch(er){
-                                    print(er);
-                                  }
+                                  //
+                                  //
+                                  // }catch(er){
+                                  //   print(er);
+                                  // }
 
 
 

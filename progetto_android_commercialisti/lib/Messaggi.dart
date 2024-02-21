@@ -101,7 +101,7 @@ class _MessaggiState extends State<Messaggi> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple.shade400,
+        backgroundColor: Colors.deepPurple.shade200,
         onPressed: () {
           showDialog(
               context: context,

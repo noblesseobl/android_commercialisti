@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:progetto_android_commercialisti/LoginPlayer.dart';
+import 'package:progetto_android_commercialisti/Login.dart';
 
 void main() {
   runApp(MyHomePage());
@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
 
   Widget build(BuildContext context){
-    return MaterialApp(home: LoginPlayer(),
+    return MaterialApp(home: Login(),
       debugShowCheckedModeBanner: false,);
   }
 }
