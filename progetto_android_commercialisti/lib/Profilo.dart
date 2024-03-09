@@ -351,51 +351,7 @@ class _ProfiloState extends State<Profilo> {
         )
       ),
 
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        child: Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 35.0, vertical: 15),
-          child: GNav(
-            backgroundColor: Colors.black87,
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabBackgroundColor: Colors.white24,
-            padding: EdgeInsets.all(11),
-            gap: 8,
-            selectedIndex: 2,
-            iconSize: 25,
-            onTabChange: (index) async {
-              if (index == 1) {
-                Navigator.of(context).push(
-                  CustomPageRoute(
-                      child: Messaggi(),
-                      direction:AxisDirection.up),);
-              }else if (index==0){
-                Navigator.of(context).push(
-                  CustomPageRoute(
-                      child: HomePage(),
-                      direction:AxisDirection.up),);
-              }
-            },
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
-              ),
-              GButton(
-                icon: Icons.mail,
-                text: 'Messaggi',
-              ),
-              GButton(
-                icon: Icons.account_circle,
-                text: 'Profilo',
-              ),
 
-            ],
-          ),
-        ),
-      ),
 
     );
   }

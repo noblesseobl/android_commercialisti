@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:progetto_android_commercialisti/Applicazione.dart';
 import 'package:progetto_android_commercialisti/HomePage.dart';
 import 'package:progetto_android_commercialisti/SignIn.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
@@ -154,7 +155,7 @@ class _LoginState extends State<Login> {
                                 if (_formKey.currentState!.validate()) {
 
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Processing Data')),);
+                                    const SnackBar(content: Text('Bentornato nome')),);
                                   // );
                                   // try{
                                   //
@@ -180,7 +181,7 @@ class _LoginState extends State<Login> {
                                   //     if (response.statusCode == 200) {
                                           Navigator.of(context).push(
                                             CustomPageRoute(
-                                              child: HomePage(),
+                                              child: Applicazione(),
                                               direction:AxisDirection.up
                                           ),);
                                       // }  else {
@@ -218,7 +219,7 @@ class _LoginState extends State<Login> {
 
                                 // Navigator.of(context).push(
                                 //   CustomPageRoute(
-                                //       child: HomePage(),
+                                //       child: Applicazione(),
                                 //       direction:AxisDirection.up
                                 //   ),);
 

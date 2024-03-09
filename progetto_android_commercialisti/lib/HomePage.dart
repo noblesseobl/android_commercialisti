@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:progetto_android_commercialisti/Messaggi.dart';
 import 'package:progetto_android_commercialisti/Profilo.dart';
-import 'package:progetto_android_commercialisti/transition.dart';
 import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 import 'package:http/http.dart' as http;
 import 'AggiustaSize.dart';
@@ -83,52 +82,6 @@ class _HomePageState extends State<HomePage> {
               for (int i = 0; i < 14; i++)
                 News(i)
             ],
-          ),
-        ),
-
-        bottomNavigationBar: Container(
-          color: Colors.black,
-          child: Padding(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 35.0, vertical: 15),
-            child: GNav(
-              backgroundColor: Colors.black87,
-              color: Colors.white,
-              activeColor: Colors.white,
-              selectedIndex: 0,
-              tabBackgroundColor: Colors.white24,
-              padding: EdgeInsets.all(11),
-              gap: 8,
-              iconSize: 25,
-              onTabChange: (index) async {
-                if (index == 1) {
-                  Navigator.of(context).push(
-                    CustomPageRoute(
-                        child: Messaggi(),
-                        direction:AxisDirection.up),);
-                }else if (index==2){
-                  Navigator.of(context).push(
-                    CustomPageRoute(
-                        child: Profilo(),
-                        direction:AxisDirection.up),);
-                }
-              },
-              tabs: [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: Icons.mail,
-                  text: 'Messaggi',
-                ),
-                GButton(
-                  icon: Icons.account_circle,
-                  text: 'Profilo',
-                ),
-
-              ],
-            ),
           ),
         ),
 
