@@ -1,38 +1,44 @@
-class Modello{
-  String? _token;
-  List<Studio>? _studi;
-  List<Dipendente>? _dipendenti;
-  List<Messaggio>? _messaggi;
+
+
+
+class Modello {
+  static final Modello _singleton = Modello._internal();
+
+
+  factory Modello() {
+    return _singleton;
+  }
+
+  dispose(){
+    token=null;
+    token_type=null;
+    expiration=null;
+    codiceUtente=null;
+
+    nome=null;
+    cognome=null;
+    email=null;
+    telefono=null;
+    studioId=null;
+    studioNome=null;
+  }
+
+  Modello._internal();
+
+
+
+  String? token=null;
+  String? token_type=null;
+  int? expiration=null;
+  String? codiceUtente=null;
+  String? nome=null;
+  String? cognome=null;
+  String? email=null;
+  String? telefono=null;
+  int? clienteId=null;
+  //bool? superAdmin=true;
+  int? studioId=null;
+  String? studioNome=null;
+
 }
 
-class Studio{
-
-  int? studioId;
-  String? studioNome;
-  String? indirizzo;
-  String? email;
-  String? telefono;
-  String? descrizione;
-  String? linkImmagine;
-
-
-}
-
-class Dipendente{
-
-  int? UtenteId;
-  int? DipendenteId;
-  String? dipendenteNome;
-  String? dipendenteCognome;
-  int? ufficioId;
-  String? ufficioDesc;
-
-  String? email;
-  String? telefono;
-  bool? amministratore;
-
-}
-
-class Messaggio{
-
-}

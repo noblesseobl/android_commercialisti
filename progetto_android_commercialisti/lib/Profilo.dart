@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:progetto_android_commercialisti/HomePage.dart';
-import 'package:progetto_android_commercialisti/Messaggi.dart';
-import 'package:progetto_android_commercialisti/transition.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'AggiustaSize.dart';
@@ -152,14 +147,12 @@ class _ProfiloState extends State<Profilo> {
                                               child: Padding(
                                                 padding: getPadding(top: 0),
                                                 child:
-                                                Flexible(
-                                                  child: RichText(
-                                                    overflow: TextOverflow.ellipsis,
-                                                    strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
-                                                    text: TextSpan(
-                                                        style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
-                                                        text: 'Via Roma, 34'),
-                                                  ),
+                                                RichText(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                  text: TextSpan(
+                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                      text: 'Via Roma, 34'),
                                                 ),
                                                 ),),
                                           ),
@@ -187,14 +180,12 @@ class _ProfiloState extends State<Profilo> {
                                               child: Padding(
                                                 padding: getPadding(top: 0),
                                                 child:
-                                                Flexible(
-                                                  child: RichText(
-                                                    overflow: TextOverflow.ellipsis,
-                                                    strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
-                                                    text: TextSpan(
-                                                        style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
-                                                        text: '333 333333'),
-                                                  ),
+                                                RichText(
+                                                  overflow: TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(fontSize: 20.0, fontWeight: FontWeight.w400),
+                                                  text: TextSpan(
+                                                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400, ),
+                                                      text: '333 333333'),
                                                 ),),),
                                           ),
                                         ],

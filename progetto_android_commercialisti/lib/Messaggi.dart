@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:progetto_android_commercialisti/AggiustaSize.dart';
-import 'package:progetto_android_commercialisti/HomePage.dart';
-import 'package:progetto_android_commercialisti/Profilo.dart';
-import 'package:progetto_android_commercialisti/transition.dart';
 import 'dart:io';
 
 
@@ -108,6 +104,9 @@ class _MessaggiState extends State<Messaggi> {
               builder: (BuildContext context) {
                 return StatefulBuilder(
                     builder: (BuildContext context, StateSetter setState) {
+                      String? nuovoTitolo=null;
+                      String? nuovoMessaggio=null;
+
                       return AlertDialog(
                         backgroundColor: Colors.deepPurple.shade100,
                         scrollable: true,
@@ -181,35 +180,36 @@ class _MessaggiState extends State<Messaggi> {
                                 ),
                               ),
                               SizedBox(height: 10,),
+
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                padding: const EdgeInsets.all( 5.0),
                                 child: Container(
                                   height: 170,
+                                  width: 500,
                                   decoration:BoxDecoration(
                                       color: Colors.blueGrey.shade50,
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(5),
                                       border: Border.all(color: Colors.deepPurple.shade400)
                                   ),
-                                  child:Padding(
-                                    padding: const EdgeInsets.only(left: 0),
+                                  child:TextFormField(
 
-                                    child: TextFormField(
-
-                                      decoration: InputDecoration(
-                                        hintText: 'Inserisci testo',
-                                        filled: true,
-                                      ),
-                                      keyboardType: TextInputType.multiline,
-                                      expands: false,
-                                      maxLines: null,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Inserisci testo!';
-                                        }
-                                        testo=value;
-                                        return null;
-                                      },
+                                    decoration: InputDecoration(
+                                      hintText: 'Inserisci messaggio',
+                                      border: InputBorder.none,
+                                      filled: true,
                                     ),
+                                    keyboardType: TextInputType.multiline,
+                                    expands: true,
+                                    maxLines: null,
+                                    onChanged: (String value) {
+                                      nuovoMessaggio=value;
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter some text';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ),
                               ),

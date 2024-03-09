@@ -1,9 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:progetto_android_commercialisti/Applicazione.dart';
-import 'package:progetto_android_commercialisti/HomePage.dart';
+import 'package:progetto_android_commercialisti/Modello.dart';
 import 'package:progetto_android_commercialisti/SignIn.dart';
 import 'package:progetto_android_commercialisti/transition.dart';
 import 'package:http/http.dart' as http;
@@ -26,6 +25,7 @@ class _LoginState extends State<Login> {
 
   String username="";
   String password="";
+  Modello? modello=Modello();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -88,10 +88,10 @@ class _LoginState extends State<Login> {
                                     },
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
-                                      }else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value) ){
-                                        return 'Please enter a valid email';
-                                      }
+                                        return 'Please enter some text';}
+                                      // }else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value) ){
+                                      //   return 'Please enter a valid email';
+                                      // }
                                       return null;
                                     },
                                     decoration: InputDecoration(
@@ -150,81 +150,97 @@ class _LoginState extends State<Login> {
                             SizedBox(height: 25,),
 
                             ElevatedButton(
-                              onPressed: () async {
+                              onPressed: ()    async {
 
                                 if (_formKey.currentState!.validate()) {
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Bentornato nome')),);
-                                  // );
-                                  // try{
-                                  //
-                                  //   var request = http.Request('POST', Uri.parse('http://localhost:51868/Login/LoginCheck'));
-                                  //   request.body = '''{\r\n    "codiceUtente": "TEST_2",\r\n\t"password" : "Algo@2022!"\r\n\r\n}''';
-                                  //
-                                  //   http.Response response = (await request.send()) as Response;
-                                  //
-                                  //   final jsonData = jsonDecode(response.body) as Map< String, dynamic>;
-                                  //
-                                  //   if (jsonData["retCode"]=="0" && jsonData["retDescr"]=="Accesso consentito") {
-                                  //
-                                  //
-                                  //     request = http.Request('POST', Uri.parse('http://localhost:51868/token'));
-                                  //     request.bodyFields = {
-                                  //       'username': 'super',
-                                  //       'password': 'super',
-                                  //       'grant_type': 'password'
-                                  //     };
-                                  //
-                                  //     http.Response response2 = (await request.send()) as Response;
-                                  //
-                                  //     if (response.statusCode == 200) {
+
+                                  try{
+
+                                    //chiamata per il login
+                                    http.Response response = await login();
+
+                                    print(response.body);
+                                    final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+
+                                    if (jsonData["retCode"]==-1 || response.statusCode != 200) {
+                                      if (response.statusCode !=200){
+                                        print(response.reasonPhrase);
+                                      }else{
+                                        print(jsonData["retDescr"]);
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Utente non trovato, la password o l\'username potrebbero essere sbagliati')),
+                                        );
+                                      }
+                                    }
+                                    else { //login andato a buon fine
+
+
+                                      modello!.clienteId=jsonData["retCode"];
+
+                                      //chiamata per il token
+                                      http.StreamedResponse response2 = await getToken();
+
+                                      final jsonData2 =  jsonDecode(await response2.stream.bytesToString()) as Map<String, dynamic>;
+                                      response2.stream.asBroadcastStream();
+
+                                      if (response2.statusCode == 200) {
+                                        //salva token ed entra
+
+                                        modello!.token= jsonData2["access_token"];
+                                        modello!.token_type= jsonData2["token_type"];
+                                        modello!.expiration= jsonData2["expires_in"];
+
+
+                                        print(modello!.token);
+                                        //chiamata per definire il ruolo e i dati del cliente
+
+
+                                        http.StreamedResponse response3 = await getCliente();
+
+                                        response3.stream.asBroadcastStream();
+                                        final jsonData3 =  jsonDecode(await response3.stream.bytesToString());
+
+                                        if (response3.statusCode == 200) {
+
+                                          for (var tizio in jsonData3){
+                                            if(modello!.clienteId==tizio["dipendenteId"]){
+                                              modello!.codiceUtente= tizio["codiceUtente"];
+                                              modello!.nome= tizio["dipendenteNome"];
+                                              modello!.cognome= tizio["dipendenteCognome"];
+                                              modello!.email= tizio["email"];
+                                              modello!.telefono= tizio["telefono"];
+                                              modello!.studioId= tizio["studioId"];
+                                              modello!.studioNome= tizio["studioNome"];
+
+                                            }
+                                          }
+
+
                                           Navigator.of(context).push(
                                             CustomPageRoute(
-                                              child: Applicazione(),
-                                              direction:AxisDirection.up
-                                          ),);
-                                      // }  else {
-                                      // print(response.reasonPhrase);
-                                      // }
+                                                child: Applicazione(),
+                                                direction:AxisDirection.up
+                                            ),);
+                                        }
+                                        else {
+                                          print(response3.reasonPhrase);
+                                        }
 
+                                      } else {
+                                        print(response2.reasonPhrase);
+                                      }
 
+                                    }
 
-
-
-
-
-
-
-                                    //
-                                    //
-                                    // }
-                                    // else if (jsonData["retCode"]=="1" && jsonData["retDescr"]=="Accesso negato"){
-                                    //   print(response.reasonPhrase);
-                                    //   sbagliato=true;
-                                    // }else{
-                                    //   print(response.reasonPhrase);
-                                    //   sbagliato=true;
-                                    // }
-
-                                  //
-                                  //
-                                  // }catch(er){
-                                  //   print(er);
-                                  // }
-
-
+                                  }catch(er){
+                                    print(er);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Errore del Server!')),
+                                    );
+                                  }
 
                                 }
-
-                                // Navigator.of(context).push(
-                                //   CustomPageRoute(
-                                //       child: Applicazione(),
-                                //       direction:AxisDirection.up
-                                //   ),);
-
-                                //cambia route
-
                               },
                               child: Text("Accedi", style: TextStyle(fontSize: 16),),
                               style: ElevatedButton.styleFrom(
@@ -305,6 +321,47 @@ class _LoginState extends State<Login> {
   }
 
 
+  Future<http.Response> login() {
+
+    return http.post( Uri.parse('http://www.studiodoc.it/api/Login/LoginCheck'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        "codiceUtente": username,
+        "password" : password
+      }),
+    );
+  }
+
+
+  Future<http.StreamedResponse> getCliente(){
+
+    var request = http.Request('POST', Uri.parse('http://www.studiodoc.it/api/Dipendente/DipendenteListGet'));
+    String tt=modello!.token!;
+    request.bodyFields =
+    {
+      "studioId": "null",
+      "clienteId": modello!.clienteId.toString(),
+      "tipologiaClienteId": "null"
+    };
+    request.headers['Authorization'] = 'Bearer $tt';
+
+    return request.send();
+  }
+
+
+  Future<http.StreamedResponse> getToken() {
+
+    var request = http.Request('POST', Uri.parse('http://www.studiodoc.it/api/token'));
+    request.bodyFields = {
+      'username': 'super',
+      'password': 'super',
+      'grant_type': 'password'
+    };
+    return request.send();
+
+  }
   Widget _divider() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
