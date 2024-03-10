@@ -151,96 +151,101 @@ class _LoginState extends State<Login> {
 
                             ElevatedButton(
                               onPressed: ()    async {
-
-                                if (_formKey.currentState!.validate()) {
-
-
-                                  try{
-
-                                    //chiamata per il login
-                                    http.Response response = await login();
-
-                                    print(response.body);
-                                    final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
-
-                                    if (jsonData["retCode"]==-1 || response.statusCode != 200) {
-                                      if (response.statusCode !=200){
-                                        print(response.reasonPhrase);
-                                      }else{
-                                        print(jsonData["retDescr"]);
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('Utente non trovato, la password o l\'username potrebbero essere sbagliati')),
-                                        );
-                                      }
-                                    }
-                                    else { //login andato a buon fine
-
-
-                                      modello!.clienteId=jsonData["retCode"];
-
-                                      //chiamata per il token
-                                      http.StreamedResponse response2 = await getToken();
-
-                                      final jsonData2 =  jsonDecode(await response2.stream.bytesToString()) as Map<String, dynamic>;
-                                      response2.stream.asBroadcastStream();
-
-                                      if (response2.statusCode == 200) {
-                                        //salva token ed entra
-
-                                        modello!.token= jsonData2["access_token"];
-                                        modello!.token_type= jsonData2["token_type"];
-                                        modello!.expiration= jsonData2["expires_in"];
-
-
-                                        print(modello!.token);
-                                        //chiamata per definire il ruolo e i dati del cliente
-
-
-                                        http.StreamedResponse response3 = await getCliente();
-
-                                        response3.stream.asBroadcastStream();
-                                        final jsonData3 =  jsonDecode(await response3.stream.bytesToString());
-
-                                        if (response3.statusCode == 200) {
-
-                                          for (var tizio in jsonData3){
-                                            if(modello!.clienteId==tizio["dipendenteId"]){
-                                              modello!.codiceUtente= tizio["codiceUtente"];
-                                              modello!.nome= tizio["dipendenteNome"];
-                                              modello!.cognome= tizio["dipendenteCognome"];
-                                              modello!.email= tizio["email"];
-                                              modello!.telefono= tizio["telefono"];
-                                              modello!.studioId= tizio["studioId"];
-                                              modello!.studioNome= tizio["studioNome"];
-
-                                            }
-                                          }
-
-
-                                          Navigator.of(context).push(
-                                            CustomPageRoute(
-                                                child: Applicazione(),
-                                                direction:AxisDirection.up
-                                            ),);
-                                        }
-                                        else {
-                                          print(response3.reasonPhrase);
-                                        }
-
-                                      } else {
-                                        print(response2.reasonPhrase);
-                                      }
-
-                                    }
-
-                                  }catch(er){
-                                    print(er);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text('Errore del Server!')),
-                                    );
-                                  }
-
-                                }
+                                Navigator.of(context).push(
+                                  CustomPageRoute(
+                                      child: Applicazione(),
+                                      direction:AxisDirection.up
+                                  ),);
+                                //
+                                // if (_formKey.currentState!.validate()) {
+                                //
+                                //
+                                //   try{
+                                //
+                                //     //chiamata per il login
+                                //     http.Response response = await login();
+                                //
+                                //     print(response.body);
+                                //     final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+                                //
+                                //     if (jsonData["retCode"]==-1 || response.statusCode != 200) {
+                                //       if (response.statusCode !=200){
+                                //         print(response.reasonPhrase);
+                                //       }else{
+                                //         print(jsonData["retDescr"]);
+                                //         ScaffoldMessenger.of(context).showSnackBar(
+                                //           const SnackBar(content: Text('Utente non trovato, la password o l\'username potrebbero essere sbagliati')),
+                                //         );
+                                //       }
+                                //     }
+                                //     else { //login andato a buon fine
+                                //
+                                //
+                                //       modello!.clienteId=jsonData["retCode"];
+                                //
+                                //       //chiamata per il token
+                                //       http.StreamedResponse response2 = await getToken();
+                                //
+                                //       final jsonData2 =  jsonDecode(await response2.stream.bytesToString()) as Map<String, dynamic>;
+                                //       response2.stream.asBroadcastStream();
+                                //
+                                //       if (response2.statusCode == 200) {
+                                //         //salva token ed entra
+                                //
+                                //         modello!.token= jsonData2["access_token"];
+                                //         modello!.token_type= jsonData2["token_type"];
+                                //         modello!.expiration= jsonData2["expires_in"];
+                                //
+                                //
+                                //         print(modello!.token);
+                                //         //chiamata per definire il ruolo e i dati del cliente
+                                //
+                                //
+                                //         http.StreamedResponse response3 = await getCliente();
+                                //
+                                //         response3.stream.asBroadcastStream();
+                                //         final jsonData3 =  jsonDecode(await response3.stream.bytesToString());
+                                //
+                                //         if (response3.statusCode == 200) {
+                                //
+                                //           for (var tizio in jsonData3){
+                                //             if(modello!.clienteId==tizio["dipendenteId"]){
+                                //               modello!.codiceUtente= tizio["codiceUtente"];
+                                //               modello!.nome= tizio["dipendenteNome"];
+                                //               modello!.cognome= tizio["dipendenteCognome"];
+                                //               modello!.email= tizio["email"];
+                                //               modello!.telefono= tizio["telefono"];
+                                //               modello!.studioId= tizio["studioId"];
+                                //               modello!.studioNome= tizio["studioNome"];
+                                //
+                                //             }
+                                //           }
+                                //
+                                //
+                                //           Navigator.of(context).push(
+                                //             CustomPageRoute(
+                                //                 child: Applicazione(),
+                                //                 direction:AxisDirection.up
+                                //             ),);
+                                //         }
+                                //         else {
+                                //           print(response3.reasonPhrase);
+                                //         }
+                                //
+                                //       } else {
+                                //         print(response2.reasonPhrase);
+                                //       }
+                                //
+                                //     }
+                                //
+                                //   }catch(er){
+                                //     print(er);
+                                //     ScaffoldMessenger.of(context).showSnackBar(
+                                //       const SnackBar(content: Text('Errore del Server!')),
+                                //     );
+                                //   }
+                                //
+                                // }
                               },
                               child: Text("Accedi", style: TextStyle(fontSize: 16),),
                               style: ElevatedButton.styleFrom(

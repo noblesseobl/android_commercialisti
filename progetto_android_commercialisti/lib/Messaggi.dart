@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:progetto_android_commercialisti/AggiustaSize.dart';
 import 'dart:io';
+
+import 'package:progetto_android_commercialisti/Modello.dart';
 
 
 class Messaggi extends StatefulWidget {
@@ -24,6 +28,77 @@ class _MessaggiState extends State<Messaggi> {
   String? dropdownValue;
 
   String? get $dropdownValue => null;
+
+
+
+
+
+  List<Messaggio> messaggi=[];
+  Modello modello=Modello();
+
+  bool isLoading = true; // Aggiunto indicatore di caricamento
+
+  @override
+  void initState() {
+    super.initState();
+    _getMEX();
+  }
+
+  _getMEX() async {
+
+    //String tt=modello.token!;
+    String tt="wUgWkwKL777KrhbKECoJPrGj2GMX32Vi05gB9F4DeKpE6a2ah5YTuewGql5nAkQSSqGvqsMCGkNjpVsJtMg0B2CahV-whUWBMyNLnJ0FJ37C4i9XHMlkGtkN-zomOk7V9fAYWhpyVXoqEFNAJHUHpMvcbSqtZpttowtQpJnOl_njrTkyX-WzOuBApVAeJaLBvNgghbXnarobOcsoH5ZS8w";
+    var request = http.Request('POST', Uri.parse('http://www.studiodoc.it/api/Bacheca/BachecaMessageListGet'));
+    request.bodyFields={
+      //"studioId": modello!.studioId.toString(),        //<-- filtro se non null
+      "studioId": "1",        //<-- filtro se non null
+      "numMsg": "15",
+      "messaggioId": "null"
+    };
+    request.headers['Authorization'] = 'Bearer $tt';
+    http.StreamedResponse response = await request.send();
+    response.stream.asBroadcastStream();
+    var jsonData=  jsonDecode(await response.stream.bytesToString());
+    if (response.statusCode == 200) {
+      for(var mex in jsonData){
+        messaggi.add(Messaggio(mex["titolo"], mex["messaggio"], linkAllegato, mex["messaggioId"], dataInsert, dataLastUpdate));
+
+      }
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+    setState(() {
+      isLoading = false; // Nasconde l'indicatore di caricamento
+    });
+
+  }
+
+
+  DateTime formatoData(String data){
+    //gestione date
+    //2023-12-18T12:43:07.57
+
+    int year= int.parse(data.substring(0,4));
+    int month= int.parse(data.substring(5,7));
+    int day= int.parse(data.substring(8,10));
+    int hour= int.parse(data.substring(11,13));
+    int minute= int.parse(data.substring(14,16));
+    int second= int.parse(data.substring(17,19));
+    //
+    // print (year);
+    // print (month);
+    // print (day);
+    // print (hour);
+    // print (minute);
+    // print (second);
+
+    return DateTime(year, month, day, hour, minute, second);
+  }
+
+
+
+
 
 
   @override
@@ -91,7 +166,7 @@ class _MessaggiState extends State<Messaggi> {
             ),
             SizedBox(height: 20,),
             for (int i = 0; i < 6; i++)
-              Message(i)
+              MessageCARD(i)
           ],
         ),
       ),
@@ -278,20 +353,52 @@ class _MessaggiState extends State<Messaggi> {
 }
 
 
+class Messaggio{
+
+  int messaggioId;
+  int dipendenteId;
+  String dipendenteCognome;
+  String dipendenteNome;
+  int clienteId;
+  String clienteCognome;
+  String clienteNome;
+  String titolo;
+  String testo;
+  bool inviatoDaStudio;
+  int ufficioId;
+  String ufficioDescr;
+  int numeroAllegati;
+  DateTime dataLetturaMessaggio;
+
+  Messaggio(
+      this.messaggioId,
+      this.dipendenteId,
+      this.dipendenteCognome,
+      this.dipendenteNome,
+      this.clienteId,
+      this.clienteCognome,
+      this.clienteNome,
+      this.titolo,
+      this.testo,
+      this.inviatoDaStudio,
+      this.ufficioId,
+      this.ufficioDescr,
+      this.numeroAllegati,
+      this.dataLetturaMessaggio);
+}
 
 
+class MessageCARD extends StatefulWidget {
 
-class Message extends StatefulWidget {
-
-  Message(this.i);
+  MessageCARD(this.i);
 
   int i;
 
   @override
-  State<Message> createState() => _MessageState(i);
+  State<MessageCARD> createState() => _MessageState(i);
 }
 
-class _MessageState extends State<Message> {
+class _MessageState extends State<MessageCARD> {
 
   int i;
   _MessageState(this.i);

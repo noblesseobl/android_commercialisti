@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:progetto_android_commercialisti/Modello.dart';
 import 'package:rounded_expansion_tile/rounded_expansion_tile.dart';
 import 'package:http/http.dart' as http;
 import 'AggiustaSize.dart';
@@ -13,12 +16,80 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  List<News> notizie=[];
+  Modello modello=Modello();
+
+  bool isLoading = true; // Aggiunto indicatore di caricamento
+
+  @override
+  void initState() {
+    super.initState();
+    _getNews();
+  }
+
+  _getNews() async {
+
+    //String tt=modello.token!;
+    String tt="wUgWkwKL777KrhbKECoJPrGj2GMX32Vi05gB9F4DeKpE6a2ah5YTuewGql5nAkQSSqGvqsMCGkNjpVsJtMg0B2CahV-whUWBMyNLnJ0FJ37C4i9XHMlkGtkN-zomOk7V9fAYWhpyVXoqEFNAJHUHpMvcbSqtZpttowtQpJnOl_njrTkyX-WzOuBApVAeJaLBvNgghbXnarobOcsoH5ZS8w";
+    var request = http.Request('POST', Uri.parse('http://www.studiodoc.it/api/Bacheca/BachecaMessageListGet'));
+    request.bodyFields={
+      //"studioId": modello!.studioId.toString(),        //<-- filtro se non null
+      "studioId": "1",        //<-- filtro se non null
+      "numMsg": "15",
+      "messaggioId": "null"
+    };
+    request.headers['Authorization'] = 'Bearer $tt';
+    http.StreamedResponse response = await request.send();
+    response.stream.asBroadcastStream();
+    var jsonData=  jsonDecode(await response.stream.bytesToString());
+    if (response.statusCode == 200) {
+      for(var mex in jsonData){
+        DateTime dataInsert= formatoData(mex["dataInserimento"]);
+        DateTime dataLastUpdate=formatoData(mex["dataUltimaModifica"]);
+        String linkAllegato=mex["linkAllegato"];
+        notizie.add(News(mex["titolo"], mex["messaggio"], linkAllegato, mex["messaggioId"], dataInsert, dataLastUpdate));
+
+      }
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+    setState(() {
+      isLoading = false; // Nasconde l'indicatore di caricamento
+    });
+
+  }
+
+
+  DateTime formatoData(String data){
+    //gestione date
+    //2023-12-18T12:43:07.57
+
+    int year= int.parse(data.substring(0,4));
+    int month= int.parse(data.substring(5,7));
+    int day= int.parse(data.substring(8,10));
+    int hour= int.parse(data.substring(11,13));
+    int minute= int.parse(data.substring(14,16));
+    int second= int.parse(data.substring(17,19));
+    //
+    // print (year);
+    // print (month);
+    // print (day);
+    // print (hour);
+    // print (minute);
+    // print (second);
+
+    return DateTime(year, month, day, hour, minute, second);
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
         backgroundColor: Colors.blueGrey.shade50,
         appBar: AppBar(
-          //leading: Icon(Icons.account_circle, size: 45,),
           elevation: 5,
           toolbarHeight: 80,
           backgroundColor: Colors.deepPurple.shade600,
@@ -76,8 +147,11 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(height: 20,),
-              for (int i = 0; i < 14; i++)
-                News(i)
+              if (isLoading) // Aggiunto indicatore di caricamento
+                CircularProgressIndicator(), // Puoi personalizzare il tuo indicatore di caricamento
+
+              for (var mex in notizie)
+                NewsCARD(mex),
             ],
           ),
         ),
@@ -88,25 +162,56 @@ class _HomePageState extends State<HomePage> {
 }
 
 
+class News{
 
+  int messaggioId;
+  String titolo;
+  String messaggio;
+  String? linkAllegato;
+  DateTime dataInserimento;
+  DateTime dataUltimaModifica;
 
+  News(this.titolo, this.messaggio, this.linkAllegato, this.messaggioId,
+      this.dataInserimento, this.dataUltimaModifica);
 
+  // String parseDataUltimaModifica(){
+  //   return dataUltimaModifica.day.toString()+"/"+dataUltimaModifica.month.toString()+"/"+dataUltimaModifica.year.toString()+" alle ore: "+dataUltimaModifica.hour.toString()+":"+dataUltimaModifica.minute;
+  // }
 
-class News extends StatefulWidget {
+  String parseDataUltimaModifica() {
+    String formattedMinute =
+    dataUltimaModifica.minute.toString().padLeft(2, '0');
 
-  int i;
+    return dataUltimaModifica.day.toString() +
+        "/" +
+        dataUltimaModifica.month.toString() +
+        "/" +
+        dataUltimaModifica.year.toString() +
+        " alle ore: " +
+        dataUltimaModifica.hour.toString() +
+        ":" +
+        formattedMinute;
+  }
 
-  News(this.i);
-
-  @override
-  _News createState() => _News(i);
 }
 
-class _News extends State<News> {
 
-  int i;
 
-  _News(this.i);
+class NewsCARD extends StatefulWidget {
+
+
+  News messaggio;
+  NewsCARD (this.messaggio);
+
+  @override
+  _News createState() => _News(messaggio);
+}
+
+class _News extends State<NewsCARD> {
+
+  News messaggio;
+
+  _News(this.messaggio);
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +246,7 @@ class _News extends State<News> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
 
-                    title: Text("Titolo Messaggio",
+                    title: Text(messaggio.titolo,
                         textAlign: TextAlign.left,
                         maxLines: 2,
                         style: TextStyle(
@@ -151,7 +256,6 @@ class _News extends State<News> {
                         )),
 
                     children: [
-
 
                       Center(
                         child: Container(
@@ -164,17 +268,9 @@ class _News extends State<News> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Flexible(
-                                      child: RichText(
-                                        overflow: TextOverflow.ellipsis,
-                                        strutStyle: StrutStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-                                        text: TextSpan(
-                                            style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold, ),
-                                            text: 'Topic'),
-                                      ),
-                                    ),
-                                    SizedBox(width: 70,),
-                                    Text('11/09/2001',
+
+                                    SizedBox(width: 90,),
+                                    Text(messaggio.parseDataUltimaModifica(),
                                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, )
                                     ),
                                   ],
@@ -183,7 +279,7 @@ class _News extends State<News> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text('Lorem ipsum',
+                                Text(messaggio.titolo,
                                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,)
                                 ),
                                 SizedBox(
@@ -193,38 +289,15 @@ class _News extends State<News> {
                                   TextSpan(children: <TextSpan>[
 
                                     TextSpan(
-                                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                                            ' Ut enim ad minim veniam, quis nostrud exercitation '
-                                            'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse '
-                                            'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non '
-                                            'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                                        text: messaggio.messaggio,
                                         style: TextStyle(fontSize: 15,)
                                     ),
                                   ]),
                                 ),
                                 SizedBox(height: 20),
-                                ElevatedButton(
+                                if(messaggio.linkAllegato!=null) ElevatedButton(
 
                                   onPressed: () async {
-
-
-                                    var request = http.Request('POST', Uri.parse('http://localhost:80/token'));
-                                    request.bodyFields = {
-                                      'username': 'super',
-                                      'password': 'super',
-                                      'grant_type': 'password'
-                                    };
-
-                                    http.StreamedResponse response = await request.send();
-
-                                    if (response.statusCode == 200) {
-                                      print(await response.stream.bytesToString());
-                                    }
-                                    else {
-                                      print(response.reasonPhrase);
-                                    }
-
-
                                     print("ppvkojrivnm");
                                   },
 

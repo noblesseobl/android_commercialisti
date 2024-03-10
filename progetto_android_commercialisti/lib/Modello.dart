@@ -15,10 +15,12 @@ class Modello {
     expiration=null;
     codiceUtente=null;
 
+
     nome=null;
     cognome=null;
     email=null;
     telefono=null;
+    clienteId=null;
     studioId=null;
     studioNome=null;
   }

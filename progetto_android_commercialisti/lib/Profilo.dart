@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:progetto_android_commercialisti/Modello.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:http/http.dart' as http;
 import 'AggiustaSize.dart';
 
 class Profilo extends StatefulWidget {
@@ -12,6 +15,45 @@ class Profilo extends StatefulWidget {
 }
 
 class _ProfiloState extends State<Profilo> {
+
+
+  Modello modello=Modello();
+
+  // bool isLoading = true; // Aggiunto indicatore di caricamento
+  //
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _getInfo();
+  // }
+  // _getInfo() async {
+  //   String tt="wUgWkwKL777KrhbKECoJPrGj2GMX32Vi05gB9F4DeKpE6a2ah5YTuewGql5nAkQSSqGvqsMCGkNjpVsJtMg0B2CahV-whUWBMyNLnJ0FJ37C4i9XHMlkGtkN-zomOk7V9fAYWhpyVXoqEFNAJHUHpMvcbSqtZpttowtQpJnOl_njrTkyX-WzOuBApVAeJaLBvNgghbXnarobOcsoH5ZS8w";
+  //   var request = http.Request('POST', Uri.parse('http://www.studiodoc.it/api/Cliente/ClienteListGet'));
+  //   request.bodyFields={
+  //     //"studioId": modello!.studioId.toString(),        //<-- filtro se non null
+  //     "studioId": "null",
+  //     //"cliente": modello!.clienteId.toString(),
+  //     "clienteId": "1",
+  //     "tipologiaClienteId": "null"
+  //
+  //   };
+  //   request.headers['Authorization'] = 'Bearer $tt';
+  //   http.StreamedResponse response = await request.send();
+  //   response.stream.asBroadcastStream();
+  //   var jsonData=  jsonDecode(await response.stream.bytesToString());
+  //   if (response.statusCode == 200) {
+  //
+  //   }
+  //   else {
+  //     print(response.reasonPhrase);
+  //   }
+  //   setState(() {
+  //     isLoading = false; // Nasconde l'indicatore di caricamento
+  //   });
+  //
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,12 +140,16 @@ class _ProfiloState extends State<Profilo> {
 
 
                             Center(
+
                               child: Container(
                                   padding: EdgeInsets.all(20),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
+                                      // if (isLoading) // Aggiunto indicatore di caricamento
+                                      //   CircularProgressIndicator(), // Puoi personalizzare il tuo indicatore di caricamento
+
 
                                       SizedBox(height: 10,),
                                       Container(
